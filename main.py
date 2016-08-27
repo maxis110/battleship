@@ -2,12 +2,12 @@
 from __future__ import print_function
 import random
 
-def startGame(counts):
+def startGame(counts, ship_quant, field_row, field_col):
     attempts = []
-    field = genField()
-    ship = createShip()
-    ship_row = ship[0]
-    ship_col = ship[1]
+    field = genField(field_row,field_col)
+    ship = createShip(ship_quant)
+    ship_row = ship[0][0]
+    ship_col = ship[0][1]
     while counts:
         try:
             shot = []
@@ -32,18 +32,25 @@ def startGame(counts):
         except:
             print('shot outside the play field')
 
-def createShip():
-    ship_row =  random.randrange(0, 2, 1)
-    ship_column = random.randrange(0, 2, 1)
-    print(ship_row, ship_column)
-    return ship_row, ship_column
+def createShip(quantity):
+    fleet = []
+    for elem in range(quantity):
+        ship = []
+        ship_row = random.randrange(0, 2, 1)
+        ship.append(ship_row)
+        ship_column = random.randrange(0, 2, 1)
+        ship.append(ship_column)
+        if ship not in fleet:
+            fleet.append(ship)
+    print(fleet)
+    return fleet
 
-def genField():
+def genField(rows, columns):
     field = []
-    for elem in range(0,3):
+    for elem in range(rows):
         field.append([])
-        for j in range(0,3):
+        for j in range(columns):
             field[elem].append(0)
-    return field
+    return (field)
 
-startGame(8)
+startGame(8,1,3,3)
